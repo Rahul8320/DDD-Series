@@ -1,45 +1,31 @@
 ﻿using Domain.Customers;
-using Domain.Primitives;
 using Domain.Products;
 
 namespace Domain.Orders;
 
-public sealed class Order : Entity
+public sealed class Order
 {
-    private Order(Guid id, Guid customerId) : base(id)
+    private Order(OrderId id, CustomerId customerId)
     {
+        Id = id;
         CustomerId = customerId;
     }
 
     private readonly HashSet<LineItem> _lineItems = [];
 
-    public Guid CustomerId { get; private set; }
+    public OrderId Id { get; private set; }
 
-    public static Order Create(Customer customer)
+    public CustomerId CustomerId { get; private set; }
+
+    public static Order Create(CustomerId customerId)
     {
-        return new Order(Guid.NewGuid(), customer.Id);
+        return new Order(new OrderId(Guid.NewGuid()), customerId);
     }
 
-    public void Add(Product product)
+    public void Add(ProductId productId, Money productPrice)
     {
-        var lineItem = new LineItem(Guid.NewGuid(), Id, product.Id, product.Price);
+        var lineItem = new LineItem(new LineItemId(Guid.NewGuid()), Id, productId, productPrice);
 
         _lineItems.Add(lineItem);
     }
-}
-
-public sealed class LineItem : Entity
-{
-    internal LineItem(Guid id, Guid orderId, Guid productId, Money price) : base(id)
-    {
-        OrderId = orderId;
-        ProductId = productId;
-        Price = price;
-    }
-
-    public Guid OrderId { get; private set; }
-
-    public Guid ProductId { get; private set; }
-
-    public Money Price { get; private set; }
 }
