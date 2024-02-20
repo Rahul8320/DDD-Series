@@ -12,6 +12,7 @@ internal sealed class GetOrderSummaryQueryHandler(IApplicationDbContext context)
     public async Task<OrderSummary?> Handle(GetOrderSummaryQuery request, CancellationToken cancellationToken)
     {
         return await _context.OrderSummaries
+            .AsNoTracking()
             .FirstOrDefaultAsync(o => o.Id == request.OrderId, cancellationToken);
     }
 }
