@@ -9,5 +9,5 @@ public interface IApplicationDbContext
     DbSet<Customer> Customers { get; set; }
     DbSet<Order> Orders { get; set; }
 
-    Task<bool> SaveChangesAsync(CancellationToken cancellationToken);
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
