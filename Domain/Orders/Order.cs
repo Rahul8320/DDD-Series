@@ -17,6 +17,8 @@ public sealed class Order
 
     public CustomerId CustomerId { get; private set; }
 
+    public IReadOnlyList<LineItem> LineItems => [.. _lineItems];
+
     public static Order Create(CustomerId customerId)
     {
         return new Order(new OrderId(Guid.NewGuid()), customerId);
