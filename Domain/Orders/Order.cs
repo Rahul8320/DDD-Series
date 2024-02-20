@@ -30,4 +30,16 @@ public sealed class Order
 
         _lineItems.Add(lineItem);
     }
+
+    public void RemoveLintItem(LineItemId lineItemId)
+    {
+        var lineItem = _lineItems.FirstOrDefault(li => li.Id == lineItemId);
+
+        if (lineItem is null)
+        {
+            return;
+        }
+
+        _lineItems.Remove(lineItem);
+    }
 }
