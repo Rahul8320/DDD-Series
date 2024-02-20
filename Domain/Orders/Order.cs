@@ -26,7 +26,7 @@ public sealed class Order
 
     public void Add(ProductId productId, Money productPrice)
     {
-        var lineItem = new LineItem(new LineItemId(Guid.NewGuid()), Id, productId, productPrice);
+        var lineItem = LineItem.Create(Id, productId, productPrice);
 
         _lineItems.Add(lineItem);
     }

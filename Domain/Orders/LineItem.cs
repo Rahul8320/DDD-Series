@@ -4,13 +4,20 @@ namespace Domain.Orders;
 
 public sealed class LineItem 
 {
-    internal LineItem(LineItemId id, OrderId orderId, ProductId productId, Money price)
+    private LineItem(LineItemId id, OrderId orderId, ProductId productId, Money price)
     {
         Id = id;
         OrderId = orderId;
         ProductId = productId;
         Price = price;
     }
+
+    public static LineItem Create(OrderId orderId, ProductId productId, Money price)
+    {
+        return new LineItem(new LineItemId(Guid.NewGuid()), orderId, productId, price);
+    }
+
+    private LineItem() { }
 
     public LineItemId Id { get; private set; }
 

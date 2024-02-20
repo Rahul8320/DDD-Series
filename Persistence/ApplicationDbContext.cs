@@ -6,7 +6,7 @@ public class ApplicationDbContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite();
+        optionsBuilder.UseSqlite("MySqlDb.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
